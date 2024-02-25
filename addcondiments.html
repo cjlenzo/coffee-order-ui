@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducks Pond</title>
+    <style>
+        .home {
+            text-decoration: none;
+            color: saddlebrown;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .status {
+            text-decoration: none;
+            color: black;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .start {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        .left-div {
+            height: 100px;
+            width: 50%;
+            float: left;
+        }
+        .right-div {
+            width: 50%;
+            height: 100px;
+            float: right;
+            text-align: right;
+        }
+        .container {
+            width: 100%;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .selection {
+            text-align: center;
+        }
+        .left-selector {
+            height: 200px;
+            width: 50%;
+            float: left;
+        }
+        .right-selector {
+            height: 200px;
+            width: 50%;
+            float: right;
+        }
+        .left-container {
+            height: 400px;
+            width: 70%;
+            float: left;
+        }
+        .right-container {
+            height: 400px;
+            width: 30%;
+            float: right;
+            text-align: center;
+        }
+        body {
+            background-color: tan;
+        }
+        button {
+            background-color:burlywood;
+            width: 30%;
+            height: 100px;
+        }
+        button:hover {
+            background-color:lightslategray;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            text-align: center;
+        }
+        .condiment-button {
+            background-color: burlywood;
+            width: 70px;
+            height: 30px;
+        }
+        .beverage-type-button {
+            background-color: burlywood;
+            width: 125px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container clearfix">
+        <div class = "left-div">
+            <h1><a href = "index.html" class = "home"> Coffee Order System </a></h1>
+        </div>
+        <div class = "right-div">
+            <h2><a href = "orderstatus.html" class = "status"> Order Status </a></h2>
+        </div>
+    </div>
+    <h1 class = "selection"> Would you like to add any condiments? </h1>
+    <div class = "container-clearfix">
+        <div class = "left-container">
+            <div class = "container clearfix">
+                <div class = "left-selector">
+                    <button onclick = "updateCondiment('Milk')"><h1> Milk </h1></button></a>
+                </div>
+                <div class = "right-selector">
+                    <button onclick = "updateCondiment('Mocha')"><h1> Mocha </h1></button></a>
+                </div>
+            </div>
+            <div class = "container clearfix">
+                <div class = "left-selector">
+                    <button onclick = "updateCondiment('Soy')"><h1> Soy </h1></button></a>
+                </div>
+                <div class = "right-selector">
+                    <button onclick = "updateCondiment('Whip')"><h1> Whip </h1></button></a>
+                </div>
+            </div>
+        </div>
+        <div class = "right-container">
+            <div style = "height: 75%;" >
+                <h2> Your Order </h2>
+                <button class = "beverage-type-button"><h3 id = "selectedBeverageHeading"> selectedBeverage </h3></button>
+                <ul id = "condimentsList" onclick = "removeCondiment(event)"></ul>
+            </div>
+            <div style = "height: 25%;">
+                <button onclick = "placeOrder()" class = "beverage-type-button"><h3> Confirm Order </h3></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParameters = new URLSearchParams(window.location.search);
+        const selectedBeverage = urlParameters.get('beverage');
+
+        const selectedBeverageButton = document.getElementById('selectedBeverageHeading');
+        selectedBeverageButton.textContent = selectedBeverage;
+
+        selectedBeverageButton.addEventListener('click', function() {
+            selectedBeverageButton.textContent = '';
+            window.location.href = "startorder.html";
+        });
+
+        selectedBeverageButton
+
+        function updateCondiment(condimentName) {
+            const li = document.createElement('li');
+            const button = document.createElement('button');
+            button.textContent = condimentName;
+            button.classList.add("condiment-button");
+            li.appendChild(button);
+            condimentsList.appendChild(li);
+        }
+
+        function removeCondiment(event) {
+            if (event.target.tagName === "BUTTON") {
+                event.target.remove();
+            }
+        }
+
+        function placeOrder() {
+            const condiments = Array.from(condimentsList.children).map(li => li.textContent.trim());
+            const orderDetails = {
+                selectedBeverage,
+                condiments
+            };
+            const orderDetailsString = encodeURIComponent(JSON.stringify(orderDetails));
+            console.log('Redirecting to:', `orderplaced.html?order=${encodeURIComponent(orderDetailsString)}`)
+            window.location.href = `orderplaced.html?order=${encodeURIComponent(orderDetailsString)}`;
+        }
+
+    </script>
+</body>
+</html>

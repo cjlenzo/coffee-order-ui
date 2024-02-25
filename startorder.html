@@ -45,20 +45,38 @@
             display: table;
             clear: both;
         }
+        .selection {
+            text-align: center;
+        }
+        .left-selector {
+            height: 200px;
+            width: 50%;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-selector {
+            height: 200px;
+            width: 50%;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         body {
             background-color: tan;
         }
         button {
             background-color:burlywood;
             width: 20%;
-            height: 200px;
-            margin: auto;
-            margin-top: 150px
+            height: 100px;
         }
         button:hover {
             background-color:lightslategray;
             cursor: pointer;
         }
+        
     </style>
 </head>
 <body>
@@ -70,8 +88,22 @@
             <h2><a href = "orderstatus.html" class = "status"> Order Status </a></h2>
         </div>
     </div>
-    <div class = "container">
-        <button onclick = "window.location.href='startorder.html'" class = "start"><h1> Start Your Order Here! </h1></button>
+    <h1 class = "selection"> Select your beverage! </h1>
+    <div class = "container clearfix">
+        <div class = "left-selector">
+            <button onclick = "window.location.href='addcondiments.html?beverage=Dark Roast'"><h1> Dark Roast </h1></button>
+        </div>
+        <div class = "right-selector">
+            <button onclick = "window.location.href='addcondiments.html?beverage=Espresso'"><h1> Espresso </h1></button>
+        </div>
+    </div>
+    <div class = "container clearfix">
+        <div class = "left-selector">
+            <button onclick = "window.location.href='addcondiments.html?beverage=House Blend'"><h1> House Blend </h1></button>
+        </div>
+        <div class = "right-selector">
+            <button onclick = "window.location.href='addcondiments.html?beverage=Decaf'"><h1> Decaf </h1></button>
+        </div>
     </div>
 </body>
 </html>
