@@ -170,7 +170,9 @@
         }
 
         function placeOrder() {
-            const condiments = Array.from(condimentsList.children).map(li => li.textContent.trim());
+            const condiments =  Array.from(condimentsList.children)
+                                .map(li => li.textContent.trim())
+                                .filter(condiment => condiment !== '');
             const orderDetails = {
                 selectedBeverage,
                 condiments
