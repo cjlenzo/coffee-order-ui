@@ -59,8 +59,18 @@
     </div>
 
     <script>
+
+        host = "https://coffee-order-latest-50cb.onrender.com"
+
+        let orderDetailsString = getParameterByName('order');
+        let orderDetails = orderDetailsString ? JSON.parse(decodeURIComponent(orderDetailsString)): null;
+        let selectedBeverage = orderDetails ? orderDetails.selectedBeverage: null;
+        let selectedCondiments = orderDetails ? orderDetails.condiments: null;
+
+        let orderDetailsContainer = document.getElementById('orderDetails');
+
         function getParameterByName(name) {
-            const url = window.location.href;
+            let url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
             var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
                 results = regex.exec(url);
@@ -69,21 +79,33 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
-        const orderDetailsString = getParameterByName('order');
-        const orderDetails = orderDetailsString ? JSON.parse(decodeURIComponent(orderDetailsString)): null;
+        async function updateOrderDetails() {
+            let order = {beverage: selectedBeverage, condiments: selectedCondiments}
+            request = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(order)
+            };
+            let response = await fetch(host + "/orders", request);
+            returned_order_details = await response.json();
+            message = "";
+            if (response.ok) {
+                message = "Order has been placed!"
+                orderDetailsContainer.innerHTML = `<h1> Your Order Has Been Placed! </h1>
+                                                   <h2> Your Order ID: ${returned_order_details.id} </h2>
+                                                   <h2> Selected Beverage and Condiments: ${returned_order_details.description} </h2>
+                                                   <h2> Total: ${returned_order_details.cost} </h2>`;
+            }
+            else {
+                message = "Order Failed"
+            }
+            alert(message)
+        }
 
-        const orderDetailsContainer = document.getElementById('orderDetails');
-        if (orderDetails) {
-            orderDetailsContainer.innerHTML =  `<h1> Your Order Has Been Placed! </h1>
-                                                <h2> Your Order ID: 1 </h2>
-                                                <h2> Selected Beverage: ${orderDetails.selectedBeverage} </h2>
-                                                <h2> Condiments: ${orderDetails.condiments.join(', ')} </h2>
-                                                <h2> Total: $4.5 </h2>`;
-        }
-        else {
-            orderDetailsContainer.innerHTML = '<p> No Order Details Found </p>';
-        }
-                                            
+        document.addEventListener("DOMContentLoaded", updateOrderDetails)
+
     </script>
 </body>
 </html>
