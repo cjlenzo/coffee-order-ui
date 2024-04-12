@@ -3,52 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ducks Pond</title>
-    <style>
-        .home {
-            text-decoration: none;
-            color: saddlebrown;
-            text-align: left;
-            padding-left: 10px;
-        }
-        .status {
-            text-decoration: none;
-            color: black;
-            text-align: right;
-            padding-right: 10px;
-        }
-        .left-div {
-            height: 100px;
-            width: 50%;
-            float: left;
-        }
-        .right-div {
-            width: 50%;
-            height: 100px;
-            float: right;
-            text-align: right;
-        }
-        .container {
-            width: 100%;
-        }
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        body {
-            background-color: tan;
-        }
-    </style>
+    <link rel = "stylesheet" href = "orderstatus.css">
+    <title>Order Status</title>
 </head>
 <body>
+
     <div class="container clearfix">
         <div class = "left-div">
             <h1><a href = "index.html" class = "home"> Coffee Order System </a></h1>
         </div>
         <div class = "right-div">
             <h2><a href = "orderstatus.html" class = "status"> Order Status </a></h2>
+            <h2><a href = "login.html" class = "status"> Logout </a></h2>
         </div>
     </div>
+
+    <script src = "configuration.js"></script>
+    <script src = "orderstatus.js"></script>
 </body>
 </html>

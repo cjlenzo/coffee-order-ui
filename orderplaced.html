@@ -3,47 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ducks Pond</title>
-    <style>
-        .home {
-            text-decoration: none;
-            color: saddlebrown;
-            text-align: left;
-            padding-left: 10px;
-        }
-        .status {
-            text-decoration: none;
-            color: black;
-            text-align: right;
-            padding-right: 10px;
-        }
-        .left-div {
-            height: 100px;
-            width: 50%;
-            float: left;
-        }
-        .right-div {
-            width: 50%;
-            height: 100px;
-            float: right;
-            text-align: right;
-        }
-        .container {
-            width: 100%;
-        }
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        body {
-            background-color: tan;
-        }
-        .order-details {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel = "stylesheet" href = "orderplaced.css">
+    <title>Order Placed</title>
 </head>
 <body>
     <div class="container clearfix">
@@ -52,60 +13,14 @@
         </div>
         <div class = "right-div">
             <h2><a href = "orderstatus.html" class = "status"> Order Status </a></h2>
+            <h2><a href = "login.html" class = "status"> Logout </a></h2>
         </div>
     </div>
     <div class = "order-details" id = "orderDetails">
 
     </div>
 
-    <script>
-
-        host = "https://coffee-order-latest-50cb.onrender.com"
-
-        let orderDetailsString = getParameterByName('order');
-        let orderDetails = orderDetailsString ? JSON.parse(decodeURIComponent(orderDetailsString)): null;
-        let selectedBeverage = orderDetails ? orderDetails.selectedBeverage: null;
-        let selectedCondiments = orderDetails ? orderDetails.condiments: null;
-
-        let orderDetailsContainer = document.getElementById('orderDetails');
-
-        function getParameterByName(name) {
-            let url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-        async function updateOrderDetails() {
-            let order = {beverage: selectedBeverage, condiments: selectedCondiments}
-            request = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(order)
-            };
-            let response = await fetch(host + "/orders", request);
-            returned_order_details = await response.json();
-            message = "";
-            if (response.ok) {
-                message = "Order has been placed!"
-                orderDetailsContainer.innerHTML = `<h1> Your Order Has Been Placed! </h1>
-                                                   <h2> Your Order ID: ${returned_order_details.id} </h2>
-                                                   <h2> Selected Beverage and Condiments: ${returned_order_details.description} </h2>
-                                                   <h2> Total: ${returned_order_details.cost} </h2>`;
-            }
-            else {
-                message = "Order Failed"
-            }
-            alert(message)
-        }
-
-        document.addEventListener("DOMContentLoaded", updateOrderDetails)
-
-    </script>
+    <script src = "configuration.js"></script>
+    <script src = "orderplaced.js"></script>
 </body>
 </html>
