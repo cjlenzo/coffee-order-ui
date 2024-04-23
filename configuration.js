@@ -1,7 +1,7 @@
 const mode = 1;
 
 const host_local = "http://localhost:8080";
-const host_remote = "https://coffee-order-homework8-latest-xdyz.onrender.com";
+const host_remote = "https://coffee-order-homework9-latest.onrender.com";
 
 function getHost() {
     return (mode == 0) ? host_local : host_remote;
